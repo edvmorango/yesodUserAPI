@@ -1,0 +1,4 @@
+database:
+  database: yesodUserAPI_test
+
+auth-dummy-login: true
