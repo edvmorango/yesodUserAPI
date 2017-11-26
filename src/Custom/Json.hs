@@ -3,9 +3,12 @@
 {-# LANGUAGE QuasiQuotes           #-}
 {-# LANGUAGE TemplateHaskell       #-}
 {-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE ViewPatterns         #-} -- Parameter Necessary
+
 
 import Yesod
 import Data.Time (getCurrentTime)
+import Data.Text (Text)
 
 data Json = Json
 
@@ -13,6 +16,7 @@ mkYesod "Json" [parseRoutes|
 / HomeR GET
 /error ErrorR GET
 /not-found NotFoundR GET
+/user/#Text UserR GET
 |]
 
 instance Yesod Json where
@@ -20,6 +24,9 @@ instance Yesod Json where
     setTitle "Request page not found"
     toWidget [whamlet| <p> Not found |]
   errorHandler other = defaultErrorHandler other
+
+getUserR :: Text -> Handler Html
+getUserR name = defaultLayout [whamlet| <p> Hey #{name} |]
 
 getHomeR = do
   now <- liftIO getCurrentTime
