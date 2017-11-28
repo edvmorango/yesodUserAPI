@@ -86,7 +86,7 @@ userInfoForm = renderTable $ userInfoAForm $ Just $ UserInfo "Forte" "Manaus" "g
 
 getUserInfoR :: Handler Html
 getUserInfoR = do
-  (widget, enctype) <- generateFormPost userInfoAForm
+  (widget, enctype) <- generateFormPost userInfoForm
   defaultLayout [whamlet|
   <p> User info form
   <form method=post action=@{UserR} enctype=#{enctype}>
